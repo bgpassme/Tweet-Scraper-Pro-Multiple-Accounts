@@ -22,6 +22,7 @@ import { Cluster } from "puppeteer-cluster";
 puppeteer.use(StealthPlugin());
 puppeteer.use(AdblockerPlugin({ blockTrackers: true }));
 
+// Change from class declaration to export class
 class TwitterPipeline {
   constructor(username) {
     this.username = username;
@@ -872,4 +873,5 @@ async saveCookies() {
   }
 }
 
+// Keep only this export at the bottom
 export default TwitterPipeline;

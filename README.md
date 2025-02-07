@@ -1,72 +1,97 @@
-# Degen Scraper
+# Tweet-Scraper Pro (Multiple Accounts)
 
-Pipeline for generating AI character files and training datasets by scraping public figures' online presence across Twitter and blogs.
+An advanced pipeline for automated collection and AI-enhanced processing of tweets from multiple public figures. Features intelligent rate limiting, vector-based duplicate detection, and AI content enhancement.
 
-> ⚠️ **IMPORTANT**: Create a new Twitter account for this tool. DO NOT use your main account as it may trigger Twitter's automation detection and result in account restrictions.
 
-## Setup
+this project is Forked of : https://github.com/elizaOS/twitter-scraper-finetune
 
-1. Install dependencies:
+## Features
+- 🔄 Multi-account monitoring with smart delays
+- 🤖 AI-powered tweet enhancement
+- 🎯 Vector-based duplicate detection
+- ⚡ Intelligent rate limiting
+- 🔒 Secure cookie-based authentication
+- 📊 Detailed logging and statistics
+
+## Prerequisites
+- Node.js (v14 or higher)
+- npm or yarn
+- Twitter account for authentication
+- OpenAI API key
+
+
+## Installation
+
+1. **Clone the Repository**
    ```bash
+   git clone https://github.com/yourusername/tweet-scraper-pro.git
+   cd tweet-scraper-pro
+
+2. Install Dependencies
    npm install
-   ```
 
-2. Copy the `.env.example` into a `.env` file:
-   ```properties
-   # (Required) Twitter Authentication
-   TWITTER_USERNAME=     # your twitter username
-   TWITTER_PASSWORD=     # your twitter password
 
-   # (Optional) Blog Configuration
-   BLOG_URLS_FILE=      # path to file containing blog URLs
 
-   # (Optional) Scraping Configuration
-   MAX_TWEETS=          # max tweets to scrape
-   MAX_RETRIES=         # max retries for scraping
-   RETRY_DELAY=         # delay between retries
-   MIN_DELAY=           # minimum delay between requests
-   MAX_DELAY=           # maximum delay between requests
-   ```
+3. Configure Environment Create a .env
 
-## Usage
+4. Running the Scraper
+configure  TARGET_USERNAMES=account1,account2 Without @ symbol (example: TARGET_USERNAMES=elonmusk,jack) in .env file to scrape the tweets
 
-### Twitter Collection
-```bash
-npm run twitter -- username
-```
-Example: `npm run twitter -- pmarca`
+npm run start:monitor
 
-### Blog Collection
-```bash
-npm run blog
-```
 
-### Generate Character
-```bash
-npm run character -- username
-```
-Example: `npm run character -- pmarca`
+## Important Notes
+⚠️ Security Recommendations :
 
-### Finetune
-```bash
-npm run finetune
-```
+- ⚠️ Create a dedicated Twitter account for scraping
+- 🔒 Store API keys securely
+- 📊 Monitor rate limits in logs
+- ⚡ Follow Twitter's automation guidelines
 
-### Finetune (with test)
-```bash
-npm run finetune:test
-```
+## Troubleshooting
+If you encounter issues:
 
-### Generate Virtuals Character Card
-https://whitepaper.virtuals.io/developer-documents/agent-contribution/contribute-to-cognitive-core#character-card-and-goal-samples
+1. Check Twitter credentials
+2. Verify API keys are valid
+3. Ensure proper delay settings
+4. Check network connectivity
+5. Review logs for errors
 
-Run this after Twitter Collection step 
-```bash
-npm run generate-virtuals -- username date 
-```
+## Directory structure
 
-Example: `npm run generate-virtuals -- pmarca 2024-11-29`
-Example without date: `npm run generate-virtuals -- pmarca`
+tweet-scraper-pro/
+├── src/
+│   ├── twitter/
+│   │   ├── TwitterPipeline.js
+│   │   └── Logger.js
+│   ├── vectorStore/
+│   │   └── index.js
+│   ├── enhancer/
+│   │   └── index.js
+│   ├── utils/
+│   │   └── Logger.js
+│   ├── scheduler/
+│   │   └── index.js
+│   └── index.js
+├── data/
+│   ├── vector_store/
+│   │   └── [username]/
+│   │       ├── docstore.json
+│   │       └── hnswlib.index
+│   └── generated_tweets/
+│       └── [username]/
+│           └── [timestamp]_[tweet_id].json
+├── cookies/
+│   └── [username]_cookies.json
+├── package.json
+├── .env
+└── README.md
 
-The generated character file will be in the `pipeline/[username]/[date]/character/character.json` directory.
-The generated tweet dataset file will be in `pipeline/[username]/[date]/raw/tweets.json`.
+Key directories and their purposes:
+
+- src/ : Source code files
+- data/ : Stored tweets and vector databases
+- cookies/ : Authentication data
+- src/twitter/ : Twitter interaction logic
+- src/vectorStore/ : Vector similarity handling
+- src/enhancer/ : AI enhancement
